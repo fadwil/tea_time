@@ -7,7 +7,6 @@ RSpec.describe "PATCH /api/v1/subscriptions/:id", type: :request do
       tea = create(:tea)
       subscription = create(:subscription, status: 'active')
 
-
       expect(subscription.status).to eq('active')
 
       patch "/api/v1/subscriptions/#{subscription.id}", params: { subscription: { status: 'cancelled' } }, as: :json
