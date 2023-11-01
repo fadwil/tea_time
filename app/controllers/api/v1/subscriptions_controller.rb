@@ -1,9 +1,15 @@
 class Api::V1::SubscriptionsController < ApplicationController
   def create
     # begin
-      render json: SubscriptionSerializer.new(Subscription.create!(subscription_params)), status: :created
+    render json: SubscriptionSerializer.new(Subscription.create!(subscription_params)), status: :created
     # rescue => e
     #   redner json: ErrorSerializer.new(e).serialized_json, status: 
+  end
+
+  def update
+    subscription = Subscription.find(params[:id])
+    subscription.update!(subscription_params)
+    render json: SubscriptionSerializer.new(subscription)
   end
 
   private
