@@ -48,7 +48,7 @@ RSpec.describe "POST /api/v1/subscriptions", type: :request do
         price: 19.99,
         status: 'active',
         frequency: 'monthly',
-        tea_id: 999,  # Assuming 999 is an invalid tea_id
+        tea_id: nil,  
         customer_id: customer.id
       }
 

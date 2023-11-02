@@ -27,4 +27,19 @@ RSpec.describe "Get /api/v1/customers/:id?subscriptions", type: :request do
       )
     end
   end
+
+  describe "sad path" do
+    it "returns a not found response if the customer does not exist" do
+      non_existent_customer_id = 123123123 
+
+      get "/api/v1/customers/#{non_existent_customer_id}/subscriptions", as: :json
+
+      expect(response).not_to be_successful
+      expect(response).to have_http_status(:not_found)
+
+      error_response = JSON.parse(response.body, symbolize_names: true)
+      expect(error_response[:errors].first[:details]).to eq("Couldn't find Customer with 'id'=123123123")
+
+    end
+  end
 end
