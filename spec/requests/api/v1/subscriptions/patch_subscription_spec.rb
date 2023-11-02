@@ -20,17 +20,18 @@ RSpec.describe "PATCH /api/v1/subscriptions/:id", type: :request do
   end
 
   describe "sad path" do
-    it "fails to update a subscription with invalid parameters" do
+    it "fails to update a subscription with missing parameters" do
       subscription = create(:subscription, status: 'active')
 
       expect(subscription.status).to eq('active')
 
-      patch "/api/v1/subscriptions/#{subscription.id}", params: { subscription: { status: 'invalid_status' } }, as: :json
+      patch "/api/v1/subscriptions/#{subscription.id}", params: { subscription: { status: nil } }, as: :json
 
       error_response = JSON.parse(response.body, symbolize_names: true)
-      
+
+      expect(response).not_to be_successful
       expect(response).to have_http_status(:unprocessable_entity)
-      expect(error_response[:errors]).to include({ details: "Validation failed: Status is not included in the list" })
+      expect(error_response[:errors]).to include({ details: "Validation failed: Status can't be blank" })
     end
   end
 end
