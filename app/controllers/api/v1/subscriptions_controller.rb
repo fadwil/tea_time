@@ -5,10 +5,11 @@ class Api::V1::SubscriptionsController < ApplicationController
   end
 
   def create
-    # begin
-    render json: SubscriptionSerializer.new(Subscription.create!(subscription_params)), status: :created
-    # rescue => e
-    #   redner json: ErrorSerializer.new(e).serialized_json, status: 
+    begin
+      render json: SubscriptionSerializer.new(Subscription.create!(subscription_params)), status: :created
+    rescue ActiveRecord::RecordInvalid => e
+      render json: ErrorSerializer.new(e).serialized_json, status: :unprocessable_entity
+    end
   end
 
   def update

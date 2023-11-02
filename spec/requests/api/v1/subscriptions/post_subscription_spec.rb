@@ -38,4 +38,27 @@ RSpec.describe "POST /api/v1/subscriptions", type: :request do
       expect(new_subscription[:data][:attributes][:customer_id]).to eq(Subscription.last.customer_id)
     end
   end
+
+  describe "sad path" do
+    it "fails to create subscription for customer with invalid tea_id" do
+      customer = create(:customer)
+
+      invalid_subscription_params = {
+        title: 'Monthly Subscription',
+        price: 19.99,
+        status: 'active',
+        frequency: 'monthly',
+        tea_id: 999,  # Assuming 999 is an invalid tea_id
+        customer_id: customer.id
+      }
+
+      post "/api/v1/subscriptions", params: invalid_subscription_params, as: :json
+
+      expect(response).not_to be_successful
+      expect(response).to have_http_status(:unprocessable_entity)
+
+      error_response = JSON.parse(response.body, symbolize_names: true)
+      expect(error_response[:errors]).to include({ details: "Validation failed: Tea must exist" })
+    end
+  end
 end
