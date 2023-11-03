@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Get /api/v1/customers/:id?subscriptions", type: :request do
+RSpec.describe "Get /api/v1/customers/:id/subscriptions", type: :request do
   describe "happy path" do
     it "returns all subscriptions for a customer" do
       customer = create(:customer)
