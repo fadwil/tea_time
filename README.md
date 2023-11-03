@@ -136,7 +136,7 @@ Example Request: <br>
 | :--- | :--- |
 | 200 | OK |
 
-Example Response <br>
+Example Response: <br>
 
 ```json
 {
