@@ -158,3 +158,32 @@ Example Response <br>
 </details>
 </details>
 
+## Database Schema 
+
+<img width="590" alt="Screen Shot 2023-11-02 at 9 43 21 PM" src="https://github.com/fadwil/tea_time/assets/128260033/224f117c-a8e5-40b6-8bcf-625c05954581">
+
+## Status Codes
+
+| Status Code | Description |
+| :--- | :--- |
+| 200 | `OK` |
+| 201 | `CREATED` |
+| 422 | `UNPROCESSABLE ENTITY` |
+| 404 | `NOT FOUND` |
+| 500 | `INTERNAL SERVER ERROR` |
+
+## Prerequisites
+Running this project requires:
+- Rails 7.0.8
+- Ruby 3.2.2
+
+## Installation
+
+1. Fork and clone this repository
+2. `cd` into the root directory
+3. `bundle install`
+4. `rails db:{drop,create,migrate,seed}`
+5. Run the test suite with `bundle exec rspec`. All tests should pass.
+6. Start the local server by running `rails s`
+7. Explore each endpoint using a base URL of `localhost:3000` in Postman or curl.
+
